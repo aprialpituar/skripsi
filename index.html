@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Informasi Penggajian & Absensi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Inter untuk tampilan professional software/dashboard -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#2563eb', // Blue 600
+                        secondary: '#475569', // Slate 600
+                        success: '#10b981', // Emerald 500
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+
+    <!-- Navbar Minimalis -->
+    <nav class="bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow flex items-center justify-center p-6">
+        <div class="w-full max-w-6xl">
+
+            <!-- Role Selection Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <!-- Role: Pimpinan -->
+                <a href="pimpinan.html" class="group relative bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i data-lucide="bar-chart-3" class="w-24 h-24 text-primary"></i>
+                    </div>
+                    
+                    <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i data-lucide="briefcase" class="w-7 h-7 text-primary"></i>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Pimpinan</h3>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">
+                        laporan penggajian bulanan.
+                    </p>
+                    
+                    <div class="flex items-center text-primary font-semibold text-sm mt-auto group-hover:translate-x-2 transition-transform">
+                        Login Pimpinan <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+                    </div>
+                </a>
+
+                <!-- Role: Admin -->
+                <a href="admin.html" class="group relative bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer border-t-4 border-t-indigo-500">
+                    <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i data-lucide="settings" class="w-24 h-24 text-indigo-600"></i>
+                    </div>
+
+                    <div class="w-14 h-14 bg-indigo-50 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i data-lucide="shield-check" class="w-7 h-7 text-indigo-600"></i>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Administrator</h3>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">
+                        Kelola data tenaga kerja, input komponen gaji.
+                    </p>
+                    
+                    <div class="flex items-center text-indigo-600 font-semibold text-sm mt-auto group-hover:translate-x-2 transition-transform">
+                        Login Admin <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+                    </div>
+                </a>
+
+                <!-- Role: Tenaga Kerja -->
+                <a href="tenagakerja.html" class="group relative bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i data-lucide="users" class="w-24 h-24 text-emerald-600"></i>
+                    </div>
+
+                    <div class="w-14 h-14 bg-emerald-50 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i data-lucide="user-check" class="w-7 h-7 text-emerald-600"></i>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Tenaga Kerja</h3>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">
+                        Absensi kehadiran (Check-in/Out),melihat slip gaji digital, dan riwayat kehadiran pribadi.
+                    </p>
+                    
+                    <div class="flex items-center text-emerald-600 font-semibold text-sm mt-auto group-hover:translate-x-2 transition-transform">
+                        Login Tenaga Kerja <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+                    </div>
+                </a>
+
+            </div>
+
+            <!-- Disclaimer System Status -->
+           
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

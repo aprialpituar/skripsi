@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pimpinan Dashboard - Corporate</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Chart Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        arbi: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .loader { border: 3px solid #f3f3f3; border-radius: 50%; border-top: 3px solid #4f46e5; width: 20px; height: 20px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased overflow-x-hidden">
+
+    <!-- GLOBAL VARIABLES & API KEY -->
+    <script>
+        const API_KEY = ""; 
+    </script>
+
+    <div class="flex min-h-screen relative">
+        
+        <!-- SIDEBAR (LAYOUT BARU: PROFIL DI BAWAH) -->
+        <aside class="w-72 bg-slate-900 text-white flex-col fixed inset-y-0 left-0 z-30 hidden md:flex shadow-xl transition-all duration-300" id="sidebar">
+            
+            <!-- HEADER SIDEBAR -->
+            <div class="p-6 border-b border-slate-700 mb-4">
+                <div class="flex flex-col gap-2">
+                    <div class="w-10 h-10 bg-arbi-600 rounded-lg flex items-center justify-center font-bold text-xl shadow-lg shadow-blue-900/50">
+                        <i class="fa-solid fa-hard-hat text-white"></i>
+                    </div>
+                    <h1 class="font-bold text-xl tracking-wide leading-tight">
+                        ARBI<br>KONSTRUKSI
+                    </h1>
+                </div>
+            </div>
+            
+            <!-- NAVIGASI -->
+            <nav class="flex-1 px-4 space-y-2">
+                <!-- Dashboard Button -->
+                <button onclick="switchMenu('dashboard')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-arbi-600 text-white shadow-lg shadow-blue-900/40 transition-all" id="btn-dashboard">
+                    <i class="fa-solid fa-chart-line w-5 text-center"></i> 
+                    <span class="font-medium">Dashboard</span>
+                </button>
+                
+                <!-- Laporan Button -->
+                <button onclick="switchMenu('laporan')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-all" id="btn-laporan">
+                    <i class="fa-solid fa-file-invoice w-5 text-center"></i> 
+                    <span class="font-medium">Laporan</span>
+                </button>
+            </nav>
+
+            <!-- FOOTER SIDEBAR (PROFIL DI BAWAH SESUAI WIREFRAME) -->
+            <div class="p-4 mt-auto space-y-3 border-t border-slate-700 bg-slate-900">
+                
+                <!-- Profile Card -->
+                <div class="bg-slate-800 border border-slate-700 rounded-lg p-3 flex items-center gap-3 cursor-pointer hover:bg-slate-700 transition" onclick="switchMenu('profil')">
+                    <div class="w-10 h-10 rounded-full bg-slate-200 border-2 border-slate-500 flex items-center justify-center text-slate-600 font-bold text-sm shadow-sm">
+                        H
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-bold text-white truncate">Ir. Hartono Gunawan</p>
+                        <p class="text-xs text-slate-400 truncate hover:text-arbi-400 transition">View Profile</p>
+                    </div>
+                </div>
+
+                <!-- Logout Button -->
+                <button 
+                    onclick="window.location.href='index.html'"
+                    class="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-red-900/20 hover:bg-red-900/40 border border-red-900/30 text-red-400 rounded-lg font-medium transition-colors text-sm">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </button>
+
+
+            </div>
+        </aside>
+
+        <!-- MOBILE HEADER -->
+        <div class="md:hidden fixed top-0 w-full bg-slate-900 text-white z-40 px-4 py-3 flex justify-between items-center shadow-md">
+            <span class="font-bold flex items-center gap-2">
+                <div class="w-8 h-8 bg-arbi-600 rounded flex items-center justify-center"><i class="fa-solid fa-hard-hat text-xs"></i></div>
+                ARBI KONSTRUKSI
+            </span>
+            <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-white focus:outline-none">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- MOBILE MENU OVERLAY -->
+        <div id="mobile-menu" class="hidden fixed inset-0 bg-slate-900 z-50 pt-20 px-6 space-y-4 md:hidden">
+            <button onclick="switchMenu('dashboard'); this.parentElement.classList.add('hidden')" class="block w-full text-left py-3 px-4 bg-arbi-600 rounded-lg text-white font-bold">Dashboard</button>
+            <button onclick="switchMenu('laporan'); this.parentElement.classList.add('hidden')" class="block w-full text-left py-3 px-4 text-slate-300 border-b border-slate-800">Laporan</button>
+            <button onclick="switchMenu('profil'); this.parentElement.classList.add('hidden')" class="block w-full text-left py-3 px-4 text-slate-300 border-b border-slate-800">Profil Saya</button>
+            <button onclick="alert('Logout')" class="block w-full text-left py-3 px-4 text-red-400 border border-red-900/30 rounded-lg mt-8 bg-red-900/10">Logout</button>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 md:ml-72 p-6 md:p-10 pt-20 md:pt-10 bg-slate-50 min-h-screen transition-all">
+            
+            <!-- HEADER SECTION (LAYOUT BARU) -->
+            <header class="mb-10 fade-in">
+                <h1 class="text-2xl md:text-3xl font-bold text-slate-800 mb-1">Selamat Pagi, Pak Hartono</h1>
+                <p class="text-sm font-medium text-slate-500">Selasa, 25 September 2025</p>
+            </header>
+
+            <!-- 1. DASHBOARD SECTION (LAYOUT BARU: 4 KARTU ATAS, 1 KARTU LEBAR BAWAH) -->
+            <section id="dashboard" class="fade-in space-y-8">
+                 <!-- ROW 1: 4 Cards -->
+                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    
+                    <!-- Card 1: Tenaga Kerja -->
+                    <div class="bg-white rounded-xl p-5 h-40 flex flex-col justify-between relative shadow-sm border border-slate-100 hover:shadow-md transition-all group">
+                        <h3 class="font-semibold text-slate-500 text-sm">Total Tenaga Kerja</h3>
+                        <p class="text-4xl font-bold text-slate-800">142</p>
+                        <div class="absolute bottom-5 right-5 w-12 h-12 bg-blue-50 text-blue-600 rounded-xl shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-users text-xl"></i>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Proyek Aktif -->
+                    <div class="bg-white rounded-xl p-5 h-40 flex flex-col justify-between relative shadow-sm border border-slate-100 hover:shadow-md transition-all group">
+                        <h3 class="font-semibold text-slate-500 text-sm">Proyek Aktif</h3>
+                        <p class="text-4xl font-bold text-slate-800">8</p>
+                        <div class="absolute bottom-5 right-5 w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-briefcase text-xl"></i>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Kehadiran -->
+                    <div class="bg-white rounded-xl p-5 h-40 flex flex-col justify-between relative shadow-sm border border-slate-100 hover:shadow-md transition-all group">
+                        <h3 class="font-semibold text-slate-500 text-sm">Kehadiran Hari Ini</h3>
+                        <p class="text-4xl font-bold text-slate-800">
+                            138<span class="text-xl font-medium text-slate-400">/142</span>
+                        </p>
+                        <div class="absolute bottom-5 right-5 w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-clipboard-check text-xl"></i>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Estimasi Gaji -->
+                    <div class="bg-white rounded-xl p-5 h-40 flex flex-col justify-between relative shadow-sm border border-slate-100 hover:shadow-md transition-all group">
+                        <h3 class="font-semibold text-slate-500 text-sm">Estimasi Gaji Minggu Ini</h3>
+                        <p class="text-3xl font-bold text-slate-800">Rp 12.5jt</p>
+                        <div class="absolute bottom-5 right-5 w-12 h-12 bg-orange-50 text-orange-600 rounded-xl shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-wallet text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROW 2: Pengeluaran Bulanan (Single Wide Card) -->
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                    <div class="bg-white rounded-xl p-6 h-40 flex flex-col justify-between relative shadow-sm border border-slate-100 hover:shadow-md transition-all lg:col-span-1 group">
+                        <div>
+                            <h3 class="font-semibold text-slate-500 text-sm">Total Pengeluaran Gaji</h3>
+                            <p class="text-xs text-slate-400 mt-1 bg-slate-100 inline-block px-2 py-0.5 rounded">September 2025</p>
+                        </div>
+                        <p class="text-3xl font-bold text-slate-800">Rp 485jt</p>
+                        <div class="absolute bottom-6 right-6 w-12 h-12 bg-red-50 text-red-600 rounded-xl shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                             <i class="fa-solid fa-money-bill-wave text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                
+            </section>
+            
+            <!-- 2. LAPORAN SECTION (ISI DIKEMBALIKAN KE KODE AWAL) -->
+            <section id="laporan" class="hidden fade-in">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-slate-800">Laporan</h2>
+                    <p class="text-slate-500">Pilih jenis laporan untuk melihat detail, validasi, atau mengunduh.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    
+                    <!-- Card Absensi -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition cursor-pointer group relative">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="bg-green-100 p-3 rounded-lg text-green-600 group-hover:bg-green-600 group-hover:text-white transition">
+                                <i class="fa-solid fa-file-csv text-xl"></i>
+                            </div>
+                            <span class="text-xs font-semibold bg-slate-100 text-slate-500 px-2 py-1 rounded">Excel / PDF</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800">Laporan Absensi</h3>
+                        <p class="text-sm text-slate-500 mt-1 mb-4">Rekap kehadiran harian per proyek atau per pekerja.</p>
+                        
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="showReportPreview('absensi')" class="col-span-1 w-full border border-arbi-500 text-arbi-600 py-2 rounded-md hover:bg-arbi-50 text-sm font-medium transition">
+                                <i class="fa-solid fa-eye mr-1"></i> Preview
+                            </button>
+                            <button class="col-span-1 w-full bg-slate-800 text-white py-2 rounded-md hover:bg-slate-900 text-sm font-medium transition">
+                                <i class="fa-solid fa-download mr-1"></i> Unduh
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Card Penggajian -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition cursor-pointer group relative">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="bg-purple-100 p-3 rounded-lg text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition">
+                                <i class="fa-solid fa-money-check-dollar text-xl"></i>
+                            </div>
+                            <span class="text-xs font-semibold bg-slate-100 text-slate-500 px-2 py-1 rounded">PDF Slip</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800">Laporan Penggajian</h3>
+                        <p class="text-sm text-slate-500 mt-1 mb-4">Rekap pembayaran gaji dan slip gaji individual.</p>
+                        
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="showReportPreview('gaji')" class="col-span-1 w-full border border-purple-500 text-purple-600 py-2 rounded-md hover:bg-purple-50 text-sm font-medium transition">
+                                <i class="fa-solid fa-eye mr-1"></i> Preview
+                            </button>
+                            <button class="col-span-1 w-full bg-slate-800 text-white py-2 rounded-md hover:bg-slate-900 text-sm font-medium transition">
+                                <i class="fa-solid fa-download mr-1"></i> Unduh
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. PROFIL SECTION (ISI DIKEMBALIKAN KE KODE AWAL) -->
+            <section id="profil" class="hidden fade-in">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-slate-800">Profil Akun</h2>
+                    <p class="text-slate-500">Kelola informasi pribadi dan preferensi keamanan.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Left Column: Profile Summary -->
+                    <div class="lg:col-span-1">
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                            <div class="h-24 bg-gradient-to-r from-arbi-600 to-blue-500"></div>
+                            <div class="px-6 pb-6 text-center relative">
+                                <div class="w-24 h-24 mx-auto rounded-full border-4 border-white bg-slate-200 flex items-center justify-center text-4xl font-bold text-slate-500 shadow-md -mt-12 mb-3">
+                                    H
+                                </div>
+                                <h3 class="text-lg font-bold text-slate-800">Ir. Hartono Gunawan</h3>
+                                <p class="text-sm text-slate-500 mb-4">Direktur Utama</p>
+                                
+                                <div class="flex justify-center gap-2 mb-6">
+                                    <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold">Akun Aktif</span>
+                                    <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold">Admin</span>
+                                </div>
+
+                                <div class="text-left space-y-3 border-t border-slate-100 pt-4">
+                                    <div class="flex items-center gap-3 text-sm text-slate-600">
+                                        <i class="fa-solid fa-envelope text-slate-400 w-5"></i>
+                                        <span>hartono@perusahaan.com</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 text-sm text-slate-600">
+                                        <i class="fa-solid fa-phone text-slate-400 w-5"></i>
+                                        <span>0812-3456-7890</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 text-sm text-slate-600">
+                                        <i class="fa-solid fa-calendar text-slate-400 w-5"></i>
+                                        <span>Bergabung: Jan 2020</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Edit Forms -->
+                    <div class="lg:col-span-2 space-y-6">
+                        
+                        <!-- Edit Personal Info -->
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                            <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-user-pen text-arbi-600"></i> Edit Informasi Pribadi
+                            </h3>
+                            <form class="space-y-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-700 mb-1">Nama Lengkap</label>
+                                        <input type="text" value="Ir. Hartono Gunawan" class="w-full border border-slate-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-arbi-500 outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-700 mb-1">Username</label>
+                                        <input type="text" value="pimpinan_utama" disabled class="w-full border border-slate-200 bg-slate-50 text-slate-500 rounded-lg p-2 text-sm cursor-not-allowed">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-700 mb-1">Email</label>
+                                        <input type="email" value="hartono@perusahaan.com" class="w-full border border-slate-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-arbi-500 outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-700 mb-1">No. Telepon</label>
+                                        <input type="text" value="0812-3456-7890" class="w-full border border-slate-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-arbi-500 outline-none">
+                                    </div>
+                                </div>
+                                <div class="flex justify-end pt-2">
+                                    <button type="button" class="bg-arbi-600 hover:bg-arbi-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">
+                                        Simpan Perubahan
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Security Settings -->
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                            <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-lock text-arbi-600"></i> Keamanan & Password
+                            </h3>
+                            <form class="space-y-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-700 mb-1">Password Lama</label>
+                                        <input type="password" placeholder="••••••••" class="w-full border border-slate-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-arbi-500 outline-none">
+                                    </div>
+                                    <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-medium text-slate-700 mb-1">Password Baru</label>
+                                            <input type="password" placeholder="Minimal 8 karakter" class="w-full border border-slate-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-arbi-500 outline-none">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-medium text-slate-700 mb-1">Konfirmasi Password</label>
+                                            <input type="password" placeholder="Ulangi password baru" class="w-full border border-slate-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-arbi-500 outline-none">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex justify-end pt-2">
+                                    <button type="button" class="border border-slate-300 text-slate-600 hover:bg-slate-50 px-4 py-2 rounded-lg text-sm font-medium transition mr-2">
+                                        Batal
+                                    </button>
+                                    <button type="button" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">
+                                        Update Password
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- === MODALS (DIKEMBALIKAN KE KODE AWAL) === -->
+
+    <!-- 1. AI EXECUTIVE ASSISTANT MODAL -->
+    <div id="ai-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col relative animate-[fadeIn_0.3s_ease-out]">
+            <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-r from-indigo-900 to-purple-800 z-0"></div>
+            <div class="relative z-10 px-6 pt-6 pb-2 flex justify-between items-start text-white">
+                <div class="flex items-center gap-3">
+                    <div class="bg-white/20 p-2.5 rounded-xl backdrop-blur-md shadow-inner border border-white/10"><i class="fa-solid fa-wand-magic-sparkles text-yellow-300 text-xl"></i></div>
+                    <div><h3 class="font-bold text-xl">Asisten Eksekutif AI</h3><p class="text-indigo-200 text-xs font-medium">Powered by Gemini AI</p></div>
+                </div>
+                <button onclick="closeModal('ai-modal')" class="text-white/70 hover:text-white"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            </div>
+            <div class="p-6 pt-8 mt-4 bg-white rounded-t-3xl relative z-10 min-h-[300px]">
+                <div id="ai-loading" class="hidden flex-col items-center justify-center h-full py-12 space-y-4">
+                    <div class="loader"></div>
+                    <p class="text-sm text-slate-500 font-medium animate-pulse">Sedang menganalisa performa perusahaan...</p>
+                </div>
+                <div id="ai-content" class="space-y-4">
+                    <div class="prose prose-sm bg-slate-50 p-4 rounded-xl border border-slate-100 text-slate-700">
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><strong>Efisiensi Tenaga Kerja:</strong> Kehadiran bulan ini meningkat 2.5%, menunjukkan moral tim yang baik. Pertahankan insentif kehadiran.</li>
+                            <li><strong>Pengeluaran Terkendali:</strong> Total gaji Rp 485jt masih di bawah budget bulanan (Rp 500jt). Cashflow aman untuk bulan depan.</li>
+                            <li><strong>Pending Validation:</strong> Ada 12 slip yang perlu direview melalui menu Laporan.</li>
+                        </ul>
+                    </div>
+                    <div class="flex justify-end pt-2">
+                        <button onclick="generateAIAnalysis()" class="text-xs flex items-center gap-1.5 text-indigo-600 hover:text-indigo-800 font-medium px-3 py-1.5 rounded-lg hover:bg-indigo-50 transition-colors">
+                            <i class="fa-solid fa-rotate"></i> Analisa Ulang
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t border-slate-100 bg-slate-50 flex justify-end">
+                <button onclick="closeModal('ai-modal')" class="px-5 py-2.5 bg-slate-800 text-white rounded-lg text-sm font-medium hover:bg-slate-900 transition">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. REVIEW SLIP MODAL -->
+    <div id="review-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-[fadeIn_0.3s_ease-out]">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <div><h3 class="text-xl font-bold text-slate-800">Review Slip Gaji</h3><p class="text-sm text-slate-500">Status: Menunggu Persetujuan</p></div>
+                <button onclick="closeModal('review-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div class="p-8 overflow-y-auto">
+                <div class="flex items-start gap-4 mb-8">
+                    <div class="w-16 h-16 rounded-full bg-slate-200 flex items-center justify-center text-2xl font-bold text-slate-500">B</div>
+                    <div>
+                        <h4 class="text-lg font-bold text-slate-800" id="review-name">Nama Pekerja</h4>
+                        <p class="text-slate-500">Mandor • Proyek Jembatan A</p>
+                        <div class="mt-2 flex gap-2"><span class="bg-blue-50 text-blue-700 px-2 py-1 rounded text-xs border border-blue-100" id="review-status-hadir">Hadir: 24 Hari</span></div>
+                    </div>
+                </div>
+                
+                <div class="bg-slate-50 rounded-lg p-6 border border-slate-200 mb-6 space-y-4 text-sm">
+
+    <!-- PENDAPATAN -->
+    <div class="text-xs font-bold uppercase tracking-wide text-slate-700 mb-2">
+        Pendapatan
+    </div>
+    <div class="my-3 border-t border-slate-200"></div>
+
+    <div class="space-y-2 border-b border-slate-200 pb-3 mb-3">
+        <div class="flex justify-between text-slate-600">
+            <span>Upah Harian</span>
+            <span class="font-medium" id="review-rate">Rp 0</span>
+        </div>
+        <div class="flex justify-between text-slate-600">
+            <span>Jumlah Hadir</span>
+            <span class="font-medium" id="review-days">0 Hari</span>
+        </div>
+        <div class="flex justify-between text-slate-600">
+            <span>Lembur</span>
+            <span class="font-medium">-</span>
+        </div>
+    </div>
+
+    <div class="flex justify-between items-center">
+        <span class="text-slate-500 font-semibold">Gaji Kotor</span>
+        <span class="font-bold text-slate-500" id="review-gaji">Rp 0</span>
+    </div>
+
+    <!-- POTONGAN -->
+    <div class="text-xs font-bold uppercase tracking-wide text-slate-700 mb-2 mt-4">
+        Potongan
+    </div>
+    <div class="my-3 border-t border-slate-200"></div>
+
+    <div class="flex justify-between text-red-500">
+        <span>Potongan Kasbon</span>
+        <span>- Rp 500.000</span>
+    </div>
+    <div class="flex justify-between text-red-500">
+        <span>Iuran BPJS</span>
+        <span>- Rp 35.000</span>
+    </div>
+
+    <!-- TOTAL -->
+    <div class="flex justify-between pt-3 border-t-2 border-slate-300 text-lg font-bold text-slate-900">
+        <span>Total Bersih</span>
+        <span id="review-total">Rp 0</span>
+    </div>
+
+</div>
+
+
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="block text-sm font-medium text-slate-700">Komentar (Wajib jika Revisi)</label>
+                        <button onclick="generateAIComment()" class="text-xs flex items-center gap-1 text-purple-600 bg-purple-50 px-2 py-1 rounded-full hover:bg-purple-100 transition"><i class="fa-solid fa-wand-magic-sparkles"></i> </button>
+                    </div>
+                    <textarea id="comment-box" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 outline-none" rows="3" placeholder="Tulis catatan revisi..."></textarea>
+                </div>
+            </div>
+            <div class="p-6 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
+                <button onclick="alert('Revisi dikirim ke admin')" class="px-5 py-2.5 rounded-lg border border-red-200 text-red-600 font-medium hover:bg-red-50 flex items-center gap-2"><i class="fa-solid fa-circle-exclamation"></i> Minta Revisi</button>
+                <button onclick="alert('Slip Disetujui (ACC). Status berubah jadi Lunas.')" class="px-5 py-2.5 rounded-lg bg-emerald-600 text-white font-medium hover:bg-emerald-700 shadow-lg shadow-emerald-200 flex items-center gap-2"><i class="fa-solid fa-circle-check"></i> Setujui (ACC)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. SLIP FINAL MODAL -->
+    <div id="slip-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-[fadeIn_0.3s_ease-out]">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <div class="flex items-center gap-3">
+                    <h3 class="text-xl font-bold text-slate-800">Slip Gaji Final</h3>
+                    <span class="px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded border border-green-200">LUNAS</span>
+                </div>
+                <button onclick="closeModal('slip-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div class="p-8 overflow-y-auto">
+                <div class="flex items-start gap-4 mb-8">
+                    <div class="w-16 h-16 rounded-full bg-slate-200 flex items-center justify-center text-2xl font-bold text-slate-500">B</div>
+                    <div>
+                        <h4 class="text-lg font-bold text-slate-800">Budi Santoso</h4>
+                        <p class="text-slate-500">Mandor • Proyek Jembatan A</p>
+                        <p class="text-xs text-slate-400 mt-1">ID Slip: #PAY-2025-09-001</p>
+                    </div>
+                </div>
+                
+                <div class="bg-slate-50 rounded-lg p-6 border border-slate-200 mb-6 space-y-3 text-sm">
+                 <div class="text-xs font-bold uppercase tracking-wide text-slate-500 mb-2">
+                    Pendapatan
+                </div>
+                <div class="my-3 border-t border-slate-200"></div>
+                    <div class="space-y-2 border-b border-slate-200 pb-3 mb-2">
+                        <div class="flex justify-between text-slate-600">
+                            <span>Jumlah Hadir</span>
+                            <span class="font-medium">24 Hari</span>
+                        </div>
+                        <div class="flex justify-between text-slate-600">
+                            <span>Upah Harian</span>
+                            <span class="font-medium">Rp 333.333</span>
+                        </div>
+                        <div class="flex justify-between text-slate-600">
+                            <span>Lembur</span>
+                            <span class="font-medium">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between"><span class="text-slate-600">Gaji Kotor</span><span class="font-bold">Rp 8.000.000</span></div>
+                    <div class="text-xs font-bold uppercase tracking-wide text-slate-500 mb-2 mt-4">
+                        Potongan
+                    </div>
+                    <div class="my-3 border-t border-slate-200"></div>
+                    <div class="flex justify-between text-red-500"><span>Kasbon</span><span>- Rp 500.000</span></div>
+                    <div class="flex justify-between text-red-500"><span>Iuran Bpjs</span><span>- Rp 35.000</span></div>
+                    <div class="flex justify-between pt-3 border-t-2 border-slate-300 text-lg font-bold text-slate-900"><span>Total Diterima</span><span>Rp 7.500.000</span></div>
+                </div>
+                
+                <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 flex items-start gap-3">
+                    <i class="fa-solid fa-circle-info text-blue-600 mt-0.5"></i>
+                    <div class="text-xs text-blue-800">
+                        <p class="font-bold">Informasi Pembayaran</p>
+                        <p>Ditransfer pada: 25 Sept 2025, 14:30 WIB</p>
+                        <p>Bank: BCA (xxxx-8899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
+                <button class="px-5 py-2.5 rounded-lg border border-slate-300 text-slate-600 font-medium hover:bg-slate-100 flex items-center gap-2"><i class="fa-solid fa-print"></i> Cetak</button>
+                <button class="px-5 py-2.5 rounded-lg bg-slate-800 text-white font-medium hover:bg-slate-900 shadow-lg flex items-center gap-2"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. MODAL REPORT PREVIEW (DATA MASTER) -->
+    <div id="modal-laporan" class="fixed inset-0 bg-slate-900 bg-opacity-75 overflow-y-auto h-full w-full hidden z-50 flex items-center justify-center backdrop-blur-sm">
+        <div class="relative w-11/12 max-w-5xl mx-auto shadow-2xl rounded-xl bg-white animate-[fadeIn_0.3s_ease-out] overflow-hidden flex flex-col max-h-[90vh]">
+            
+            <!-- Modal Header -->
+            <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50 sticky top-0 z-20">
+                <div class="flex items-center space-x-3">
+                    <!-- Icon sesuai wireframe (Hijau/Clock) -->
+                    <div id="preview-icon" class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-lg" id="preview-title">Preview Laporan Absensi</h3>
+                        <p class="text-xs text-slate-500">Silakan filter data sebelum unduh</p>
+                    </div>
+                </div>
+                <button onclick="closePreview()" class="text-slate-400 hover:text-slate-600 hover:bg-slate-200 transition p-2 rounded-full">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- FILTER BAR (Update sesuai wireframe) -->
+            <div class="bg-white border-b border-slate-200 px-6 py-4 flex flex-col md:flex-row gap-4 sticky top-[73px] z-10 shadow-sm">
+                <!-- Periode Waktu -->
+                <div class="flex-1">
+                    <label id="label-periode" class="block text-xs font-medium text-slate-500 mb-1">Periode Waktu</label>
+                    <select id="filter-periode" onchange="updatePreviewTable()" class="w-full text-sm border-slate-300 rounded-full px-4 py-2 focus:ring-arbi-500 focus:border-arbi-500 bg-slate-50">
+                        <option value="today">Minggu Ini (Rekap)</option>
+                    </select>
+                </div>
+                
+                <!-- Cari Proyek -->
+                <div class="flex-[2]">
+                    <label class="block text-xs font-medium text-slate-500 mb-1">Cari Proyek</label>
+                    <div class="flex gap-2">
+                         <div class="relative flex-1">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                <i class="fa-solid fa-building"></i>
+                            </span>
+                            <input id="search-input" type="text" placeholder="Ketik nama proyek (misal: Ruko Blok A)..." class="w-full pl-9 text-sm border-slate-300 rounded-full px-4 py-2 focus:ring-arbi-500 focus:border-arbi-500 bg-slate-50">
+                        </div>
+                        <button class="bg-white border border-slate-300 text-slate-700 px-4 rounded-full text-sm font-bold hover:bg-slate-50 transition flex items-center gap-2">
+                            <i class="fa-solid fa-filter text-xs"></i> Tampilkan
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="p-0 overflow-y-auto bg-slate-50">
+                
+                <!-- 1. TABEL ABSENSI (REKAP SESUAI WIREFRAME) -->
+                <!-- Default hidden, will be shown by logic -->
+                <div id="preview-table-absensi-harian" class="hidden">
+                     <!-- Konten harian log (jika diperlukan) bisa disimpan di sini -->
+                </div>
+
+                <div id="preview-table-absensi-rekap">
+                    <table class="min-w-full divide-y divide-slate-100 text-sm text-left">
+                        <thead class="bg-slate-100 text-slate-600 font-semibold sticky top-0 shadow-sm">
+                            <tr>
+                                <th class="px-6 py-4">Nama Pekerja</th>
+                                <th class="px-6 py-4">Proyek Utama</th>
+                                <th class="px-6 py-4 text-center">Total Hadir</th>
+                                <th class="px-6 py-4 text-center">Terlambat</th>
+                                <th class="px-6 py-4 text-center">Absen/Alpha</th>
+                                <th class="px-6 py-4 text-center">Detail</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 text-slate-700 bg-white">
+                            <tr class="hover:bg-slate-50 border-b border-slate-100">
+                                <td class="px-6 py-4 font-bold">Budi Santoso</td>
+                                <td class="px-6 py-4 text-slate-500">Renovasi Ruko A</td>
+                                <td class="px-6 py-4 text-center font-bold">24 Hari</td>
+                                <td class="px-6 py-4 text-center">0</td>
+                                <td class="px-6 py-4 text-center">0</td>
+                                <td class="px-6 py-4 text-center">
+                                    <button class="border border-slate-300 text-slate-600 px-3 py-1 rounded text-xs font-bold hover:bg-slate-100 flex items-center justify-center mx-auto gap-1">
+                                        <i class="fa-solid fa-eye"></i> View
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 border-b border-slate-100">
+                                <td class="px-6 py-4 font-bold">Ujang Kusnadi</td>
+                                <td class="px-6 py-4 text-slate-500">Renovasi Ruko A</td>
+                                <td class="px-6 py-4 text-center font-bold">22 Hari</td>
+                                <td class="px-6 py-4 text-center">2</td>
+                                <td class="px-6 py-4 text-center">0</td>
+                                <td class="px-6 py-4 text-center">
+                                    <button class="border border-slate-300 text-slate-600 px-3 py-1 rounded text-xs font-bold hover:bg-slate-100 flex items-center justify-center mx-auto gap-1">
+                                        <i class="fa-solid fa-eye"></i> View
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 border-b border-slate-100">
+                                <td class="px-6 py-4 font-bold">Ahmad Dani</td>
+                                <td class="px-6 py-4 text-slate-500">Gudang Logistik</td>
+                                <td class="px-6 py-4 text-center font-bold">20 Hari</td>
+                                <td class="px-6 py-4 text-center">4</td>
+                                <td class="px-6 py-4 text-center">1</td>
+                                <td class="px-6 py-4 text-center">
+                                    <button class="border border-slate-300 text-slate-600 px-3 py-1 rounded text-xs font-bold hover:bg-slate-100 flex items-center justify-center mx-auto gap-1">
+                                        <i class="fa-solid fa-eye"></i> View
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 2. TABEL GAJI (HIDDEN BY DEFAULT) -->
+                <div id="preview-table-gaji" class="hidden">
+                    <table class="min-w-full divide-y divide-slate-100 text-sm text-left">
+                        <thead class="bg-slate-100 text-slate-500 sticky top-0 shadow-sm">
+                            <tr>
+                                <th class="px-6 py-3 font-medium">Nama Pekerja</th>
+                                <th class="px-6 py-3 font-medium">Nama Proyek</th>
+                                <th class="px-6 py-3 font-medium text-center">Jumlah Hadir</th>
+                                <th class="px-6 py-3 font-medium text-right">Total Gaji</th>
+                                <th class="px-6 py-3 font-medium text-center">Status</th>
+                                <th class="px-6 py-3 font-medium text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 text-slate-700 bg-white">
+                            <!-- Row 1: SUDAH FINAL (LUNAS) -->
+                            <tr class="hover:bg-slate-50">
+                                <td class="px-6 py-3 font-medium">Budi Santoso</td>
+                                <td class="px-6 py-3 text-slate-500">Jembatan A</td>
+                                <td class="px-6 py-3 text-center">24 Hari</td>
+                                <td class="px-6 py-3 text-right font-bold text-slate-700">Rp 8.000.000</td>
+                                <td class="px-6 py-3 text-center"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-bold">LUNAS</span></td>
+                                <td class="px-6 py-3 text-center">
+                                    <!-- Tombol View Slip Final -->
+                                    <button onclick="openSlipModal()" class="text-blue-600 hover:text-blue-800 text-xs font-medium border border-blue-200 px-3 py-1.5 rounded hover:bg-blue-50 flex items-center justify-center mx-auto gap-1 transition">
+                                        <i class="fa-solid fa-file-invoice-dollar"></i> Lihat Slip
+                                    </button>
+                                </td>
+                            </tr>
+                            <!-- Row 2: BELUM VALIDASI (MENUNGGU) -->
+                            <tr class="hover:bg-slate-50 bg-amber-50/30">
+                                <td class="px-6 py-3 font-medium">Siti Aminah</td>
+                                <td class="px-6 py-3 text-slate-500">Gedung Serbaguna</td>
+                                <td class="px-6 py-3 text-center">22 Hari</td>
+                                <td class="px-6 py-3 text-right font-bold text-slate-700">Rp 6.000.000</td>
+                                <td class="px-6 py-3 text-center"><span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-xs font-bold">MENUNGGU</span></td>
+                                <td class="px-6 py-3 text-center">
+                                    <!-- Tombol Review Validasi -->
+                                    <button onclick="openReviewModal('Siti Aminah', 6000000, 22)" class="bg-amber-500 hover:bg-amber-600 text-white text-xs font-medium px-3 py-1.5 rounded shadow-sm flex items-center justify-center mx-auto gap-1 transition">
+                                        <i class="fa-solid fa-pen-to-square"></i> Review
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="px-6 py-4 border-t border-slate-100 bg-slate-50 flex justify-end gap-2 sticky bottom-0 z-20">
+                <button onclick="closePreview()" class="px-4 py-2 bg-white border border-slate-300 rounded-md text-slate-700 text-sm font-bold hover:bg-slate-50 shadow-sm">Tutup</button>
+                <button class="px-4 py-2 bg-slate-800 text-white rounded-md text-sm font-bold hover:bg-slate-900 flex items-center gap-2 shadow-md"><i class="fa-solid fa-download"></i> Download Full</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Navigation Logic
+        function switchMenu(menuId) {
+            document.querySelectorAll('main > section').forEach(el => el.classList.add('hidden'));
+            document.getElementById(menuId).classList.remove('hidden');
+            document.querySelectorAll('.nav-item').forEach(el => { el.classList.remove('bg-arbi-600', 'text-white', 'shadow-lg'); el.classList.add('text-slate-400'); });
+            const activeBtn = document.getElementById('btn-' + menuId);
+            if(activeBtn) {
+                activeBtn.classList.add('bg-arbi-600', 'text-white', 'shadow-lg');
+                activeBtn.classList.remove('text-slate-400');
+            }
+        }
+
+        // Modal Logic
+        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+        // AI Mockup
+        function openAIModal() {
+            openModal('ai-modal');
+            document.getElementById('ai-loading').classList.remove('hidden');
+            document.getElementById('ai-loading').classList.add('flex');
+            document.getElementById('ai-content').classList.add('hidden');
+            setTimeout(() => {
+                document.getElementById('ai-loading').classList.add('hidden');
+                document.getElementById('ai-loading').classList.remove('flex');
+                document.getElementById('ai-content').classList.remove('hidden');
+            }, 1500);
+        }
+        
+        function generateAIAnalysis() { openAIModal(); }
+        function generateAIComment() { 
+            document.getElementById('comment-box').value = "Menulis..."; 
+            setTimeout(() => { document.getElementById('comment-box').value = "Mohon dicek kembali potongan kasbon sebesar Rp 500.000, apakah sudah sesuai dengan catatan peminjaman bulan lalu? Terima kasih."; }, 1000);
+        }
+
+        // Action Logics (Updated to include Days for Rate calculation)
+        function openReviewModal(name, salary, days) {
+            document.getElementById('review-name').innerText = name;
+            // Calculate logic
+            const gross = salary;
+            const kasbon = 500000;
+            const net = gross - kasbon;
+            const rate = Math.floor(gross / days);
+
+            // Update UI
+            document.getElementById('review-gaji').innerText = "Rp " + gross.toLocaleString('id-ID');
+            document.getElementById('review-total').innerText = "Rp " + net.toLocaleString('id-ID');
+            document.getElementById('review-days').innerText = days + " Hari";
+            document.getElementById('review-status-hadir').innerText = "Hadir: " + days + " Hari";
+            document.getElementById('review-rate').innerText = "Rp " + rate.toLocaleString('id-ID');
+
+            openModal('review-modal');
+        }
+
+        function openSlipModal() {
+            openModal('slip-modal');
+        }
+
+        // Report Preview Logic
+        let currentReportType = '';
+        function showReportPreview(type) {
+            currentReportType = type;
+            openModal('modal-laporan');
+            const title = document.getElementById('preview-title');
+            const filterSelect = document.getElementById('filter-periode');
+            const searchInput = document.getElementById('search-input');
+            const labelPeriode = document.getElementById('label-periode');
+            const iconContainer = document.getElementById('preview-icon');
+            
+            // Default styling for icon container
+            iconContainer.className = "h-10 w-10 rounded-full flex items-center justify-center";
+
+            if(type === 'absensi') {
+                title.innerText = 'Preview Laporan Absensi';
+                iconContainer.classList.add('bg-green-100', 'text-green-600');
+                iconContainer.innerHTML = '<i class="fa-solid fa-clock"></i>';
+                
+                labelPeriode.innerText = 'Periode Waktu';
+                searchInput.placeholder = 'Ketik nama proyek (misal: Ruko Blok A)...';
+                filterSelect.innerHTML = '<option value="today">Minggu Ini (Rekap)</option>';
+            } else {
+                title.innerText = 'Preview Laporan Penggajian';
+                iconContainer.classList.add('bg-slate-200', 'text-slate-600');
+                iconContainer.innerHTML = '<i class="fa-solid fa-file"></i>';
+
+                labelPeriode.innerText = 'Pilih Bulan';
+                searchInput.placeholder = 'Cari Nama Pekerja atau Proyek...';
+                filterSelect.innerHTML = '<option value="sep" selected>September 2025</option><option value="aug">Agustus 2025</option>';
+            }
+            updatePreviewTable();
+        }
+
+        function closePreview() { closeModal('modal-laporan'); }
+
+        function updatePreviewTable() {
+            const filterValue = document.getElementById('filter-periode').value;
+            // document.getElementById('preview-table-absensi-harian').classList.add('hidden'); // No longer needed for this specific view request
+            document.getElementById('preview-table-absensi-rekap').classList.add('hidden');
+            document.getElementById('preview-table-gaji').classList.add('hidden');
+
+            if(currentReportType === 'absensi') {
+                // Selalu tampilkan tabel rekap untuk preview absensi sesuai wireframe
+                document.getElementById('preview-table-absensi-rekap').classList.remove('hidden');
+            } else {
+                document.getElementById('preview-table-gaji').classList.remove('hidden');
+            }
+        }
+
+        // Init
+        switchMenu('dashboard');
+    </script>
+</body>
+</html>
