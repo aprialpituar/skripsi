@@ -132,7 +132,13 @@
             <button onclick="switchMenu('dashboard'); this.parentElement.classList.add('hidden')" class="block w-full text-left py-3 px-4 bg-arbi-600 rounded-lg text-white font-bold">Dashboard</button>
             <button onclick="switchMenu('laporan'); this.parentElement.classList.add('hidden')" class="block w-full text-left py-3 px-4 text-slate-300 border-b border-slate-800">Laporan</button>
             <button onclick="switchMenu('profil'); this.parentElement.classList.add('hidden')" class="block w-full text-left py-3 px-4 text-slate-300 border-b border-slate-800">Profil Saya</button>
-            <button onclick="alert('Logout')" class="block w-full text-left py-3 px-4 text-red-400 border border-red-900/30 rounded-lg mt-8 bg-red-900/10">Logout</button>
+            <button 
+                onclick="window.location.href='index.html'"
+                class="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-red-900/20 hover:bg-red-900/40 border border-red-900/30 text-red-400 rounded-lg font-medium transition-colors text-sm">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </button>
+
         </div>
 
         <!-- MAIN CONTENT -->
@@ -809,4 +815,5 @@
 </body>
 
 </html>
+
 
