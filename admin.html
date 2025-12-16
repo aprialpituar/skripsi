@@ -67,29 +67,74 @@
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased">
-
-    <div id="mobile-menu" class="hidden fixed inset-0 bg-slate-900 z-50 pt-20 px-6 space-y-4 md:hidden transition-all duration-300">
+<div id="mobile-menu" class="hidden fixed inset-0 bg-[#0f172a] z-50 pt-6 px-6 flex flex-col h-screen overflow-y-auto transition-all duration-300">
     
-    <button onclick="toggleMobileMenu()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
-        <i class="fa-solid fa-xmark text-2xl"></i>
-    </button>
+    <div class="flex items-center justify-between mb-6">
+        <div class="font-black text-xl text-arbi-500 tracking-wide">
+            <i class="fa-solid fa-helmet-safety mr-1"></i> ARBI
+        </div>
+        <button onclick="toggleMobileMenu()" class="text-slate-400 hover:text-white p-2">
+            <i class="fa-solid fa-xmark text-2xl"></i>
+        </button>
+    </div>
 
-    <button onclick="pilihMenuMobile('dashboard')" class="block w-full text-left py-3 px-4 bg-arbi-600 rounded-lg text-white font-bold shadow-lg">
-        <i class="fa-solid fa-chart-line mr-2"></i> Dashboard
-    </button>
-    
-    <button onclick="pilihMenuMobile('laporan')" class="block w-full text-left py-3 px-4 text-slate-300 hover:bg-slate-800 rounded-lg border-b border-slate-800 transition">
-        <i class="fa-solid fa-file-invoice mr-2"></i> Laporan
-    </button>
-    
-    <button onclick="pilihMenuMobile('profil')" class="block w-full text-left py-3 px-4 text-slate-300 hover:bg-slate-800 rounded-lg border-b border-slate-800 transition">
-        <i class="fa-solid fa-user mr-2"></i> Profil Saya
-    </button>
+    <div class="flex-1 space-y-6">
+        
+        <div class="space-y-2">
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider pl-4">Utama</p>
+            <button onclick="pilihMenuMobile('dashboard')" class="w-full text-left py-3 px-4 bg-arbi-600 rounded-lg text-white font-bold shadow-lg flex items-center">
+                <i class="fa-solid fa-chart-line w-6 text-center mr-2"></i> Dashboard
+            </button>
+        </div>
 
-    <button onclick="window.location.href='index.html'" class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-red-900/20 text-red-400 rounded-lg font-bold mt-8">
-        <i class="fa-solid fa-right-from-bracket"></i> Logout
-    </button>
+        <div class="space-y-2">
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider pl-4">Manajemen</p>
+            
+            <button onclick="pilihMenuMobile('tenaga-kerja')" class="w-full text-left py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition flex items-center">
+                <i class="fa-solid fa-users w-6 text-center mr-2"></i> Data Tenaga Kerja
+            </button>
+            
+            <button onclick="pilihMenuMobile('proyek')" class="w-full text-left py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition flex items-center">
+                <i class="fa-solid fa-building w-6 text-center mr-2"></i> Data Proyek
+            </button>
+            
+            <button onclick="pilihMenuMobile('penempatan')" class="w-full text-left py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition flex items-center">
+                <i class="fa-solid fa-map-location-dot w-6 text-center mr-2"></i> Penempatan TK
+            </button>
+        </div>
+
+        <div class="space-y-2">
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider pl-4">Keuangan</p>
+            
+            <button onclick="pilihMenuMobile('gaji')" class="w-full text-left py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition flex items-center">
+                <i class="fa-solid fa-money-bill-wave w-6 text-center mr-2"></i> Komponen Gaji
+            </button>
+            
+            <button onclick="pilihMenuMobile('laporan')" class="w-full text-left py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition flex items-center">
+                <i class="fa-solid fa-file-invoice w-6 text-center mr-2"></i> Laporan
+            </button>
+        </div>
+    </div>
+
+    <div class="mt-6 mb-8 pt-6 border-t border-slate-800">
+        <div class="flex items-center gap-3 mb-4 px-2">
+            <div class="h-10 w-10 rounded-full bg-arbi-500 flex items-center justify-center text-white font-bold border-2 border-slate-700">
+                AA
+            </div>
+            <div>
+                <p class="text-sm font-bold text-white">Administrator</p>
+                <p class="text-xs text-slate-500">View Profile</p>
+            </div>
+        </div>
+
+        <button onclick="window.location.href='index.html'" class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-[#1F1216] border border-red-900/30 text-red-500 rounded-lg font-bold hover:bg-red-900/20 transition-all">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
+    </div>
 </div>
+   
+    
+   
 
     <div class="flex h-screen overflow-hidden">
 
@@ -1617,4 +1662,5 @@
     }
     </script>
 </body>
+
 </html>
