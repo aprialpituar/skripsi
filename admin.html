@@ -132,9 +132,6 @@
         </button>
     </div>
 </div>
-   
-    
-   
 
     <div class="flex h-screen overflow-hidden">
 
@@ -336,68 +333,108 @@
                     </div>
 
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-                        <table class="min-w-full divide-y divide-slate-200">
-                            <thead class="bg-slate-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Nama & Kontak</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Peran</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-slate-200">
-                                <!-- Row 1 -->
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="h-10 w-10 flex-shrink-0 bg-slate-200 rounded-full flex items-center justify-center text-slate-500 font-bold">BS</div>
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-slate-900">Budi Santoso</div>
-                                                <div class="text-sm text-slate-500">0812-3456-7890</div>
+    <!-- WRAPPER RESPONSIVE -->
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-slate-200">
+                                <thead class="bg-slate-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                                            Nama & Kontak
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                                            Jabatan
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                                            Status
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                                            Aksi
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="bg-white divide-y divide-slate-200">
+                                    <!-- ROW 1 -->
+                                    <tr>
+                                        <td class="px-3 py-2 sm:px-6 sm:py-4 whitespace-normal md:whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <div class="h-10 w-10 flex-shrink-0 bg-slate-200 rounded-full flex items-center justify-center text-slate-500 font-bold">
+                                                    BS
+                                                </div>
+                                                <div class="ml-4">
+                                                    <div class="text-sm font-medium text-slate-900">
+                                                        Budi Santoso
+                                                    </div>
+                                                    <div class="text-sm text-slate-500">
+                                                        0812-3456-7890
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-slate-900">Kepala Tukang</div>
-                                        <div class="text-xs text-slate-500">Sipil</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                            Aktif
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <button class="text-indigo-600 hover:text-indigo-900 mr-3"><i class="fa-solid fa-pen-to-square"></i></button>
-                                        <button class="text-red-600 hover:text-red-900"><i class="fa-solid fa-user-slash"></i></button>
-                                    </td>
-                                </tr>
-                                <!-- Row 2 -->
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="h-10 w-10 flex-shrink-0 bg-slate-200 rounded-full flex items-center justify-center text-slate-500 font-bold">UJ</div>
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-slate-900">Ujang Kusnadi</div>
-                                                <div class="text-sm text-slate-500">0819-8888-7777</div>
+                                        </td>
+
+                                        <td class="px-3 py-2 sm:px-6 sm:py-4 whitespace-normal md:whitespace-nowrap">
+                                            <div class="text-sm text-slate-900">Kepala Tukang</div>
+                                            <div class="text-xs text-slate-500">Sipil</div>
+                                        </td>
+
+                                        <td class="px-3 py-2 sm:px-6 sm:py-4 whitespace-normal md:whitespace-nowrap">
+                                            <span class="px-2 inline-flex text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                                Aktif
+                                            </span>
+                                        </td>
+
+                                        <td class="px-3 py-2 sm:px-6 sm:py-4 whitespace-normal md:whitespace-nowrap text-sm font-medium">
+                                            <button class="text-indigo-600 hover:text-indigo-900 mr-3">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-900">
+                                                <i class="fa-solid fa-user-slash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <!-- ROW 2 -->
+                                    <tr>
+                                        <td class="px-3 py-2 sm:px-6 sm:py-4 whitespace-normal md:whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <div class="h-10 w-10 flex-shrink-0 bg-slate-200 rounded-full flex items-center justify-center text-slate-500 font-bold">
+                                                    UJ
+                                                </div>
+                                                <div class="ml-4">
+                                                    <div class="text-sm font-medium text-slate-900">
+                                                        Ujang Kusnadi
+                                                    </div>
+                                                    <div class="text-sm text-slate-500">
+                                                        0819-8888-7777
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-slate-900">Kenek</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                            Aktif
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <button class="text-indigo-600 hover:text-indigo-900 mr-3"><i class="fa-solid fa-pen-to-square"></i></button>
-                                        <button class="text-red-600 hover:text-red-900"><i class="fa-solid fa-user-slash"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                        </td>
+
+                                        <td class="px-3 py-2 sm:px-6 sm:py-4 whitespace-normal md:whitespace-nowrap">
+                                            <div class="text-sm text-slate-900">Kenek</div>
+                                        </td>
+
+                                        <td class="px-3 py-2 sm:px-6 sm:py-4 whitespace-normal md:whitespace-nowrap">
+                                            <span class="px-2 inline-flex text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                                Aktif
+                                            </span>
+                                        </td>
+
+                                        <td class="px-3 py-2 sm:px-6 sm:py-4 whitespace-normal md:whitespace-nowrap text-sm font-medium">
+                                            <button class="text-indigo-600 hover:text-indigo-900 mr-3">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-900">
+                                                <i class="fa-solid fa-user-slash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+
                 </div>
 
                 <!-- 3. DATA PROYEK SECTION -->
@@ -563,85 +600,155 @@
 
                     <!-- Main Table -->
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-                        <table class="min-w-full divide-y divide-slate-200">
-                            <thead class="bg-slate-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">Tenaga Kerja</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">Lokasi Proyek</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">Peran di Proyek</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">Durasi</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">Status</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-slate-200">
-                                <!-- Row 1 -->
-                                <tr class="hover:bg-slate-50">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="h-9 w-9 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-600 mr-3">BS</div>
-                                            <div>
-                                                <div class="text-sm font-medium text-slate-900">Budi Santoso</div>
-                                                <div class="text-xs text-slate-500">Tukang Senior</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm font-medium text-slate-800">Renovasi Ruko Blok A</div>
-                                        <div class="text-xs text-slate-500"><i class="fa-solid fa-map-pin mr-1"></i> Palembang</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full border border-blue-200 font-medium">Mandor Lapangan</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-slate-600">01 Jan 2024 - Selesai</div>
-                                        <div class="text-xs text-green-600 font-medium mt-0.5">Berjalan 3 Minggu</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                            <span class="h-1.5 w-1.5 rounded-full bg-green-600 mr-1.5"></span> Aktif
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <button class="text-slate-400 hover:text-slate-600 mr-2"><i class="fa-solid fa-pen"></i></button>
-                                        <button class="text-red-400 hover:text-red-600" title="Selesaikan Penempatan"><i class="fa-solid fa-right-from-bracket"></i></button>
-                                    </td>
-                                </tr>
-                                <!-- Row 2 -->
-                                <tr class="hover:bg-slate-50">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="h-9 w-9 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-600 mr-3">UK</div>
-                                            <div>
-                                                <div class="text-sm font-medium text-slate-900">Ujang Kusnadi</div>
-                                                <div class="text-xs text-slate-500">Kenek</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm font-medium text-slate-800">Renovasi Ruko Blok A</div>
-                                        <div class="text-xs text-slate-500"><i class="fa-solid fa-map-pin mr-1"></i> Palembang</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded-full border border-slate-200 font-medium">Tukang Bantu</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-slate-600">05 Jan 2024 - Selesai</div>
-                                        <div class="text-xs text-green-600 font-medium mt-0.5">Berjalan 2 Minggu</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                            <span class="h-1.5 w-1.5 rounded-full bg-green-600 mr-1.5"></span> Aktif
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <button class="text-slate-400 hover:text-slate-600 mr-2"><i class="fa-solid fa-pen"></i></button>
-                                        <button class="text-red-400 hover:text-red-600" title="Selesaikan Penempatan"><i class="fa-solid fa-right-from-bracket"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+    <!-- WRAPPER RESPONSIVE -->
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-slate-200">
+            <thead class="bg-slate-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">
+                        Tenaga Kerja
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">
+                        Lokasi Proyek
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">
+                        Peran di Proyek
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">
+                        Durasi
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">
+                        Status
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">
+                        Aksi
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody class="divide-y divide-slate-200">
+                <!-- ROW 1 -->
+                <tr class="hover:bg-slate-50">
+                    <td class="px-3 py-2 sm:px-6 sm:py-4 whitespace-normal md:whitespace-nowrap">
+                        <div class="flex items-center">
+                            <div class="h-9 w-9 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-600 mr-3">
+                                BS
+                            </div>
+                            <div>
+                                <div class="text-sm font-medium text-slate-900">
+                                    Budi Santoso
+                                </div>
+                                <div class="text-xs text-slate-500">
+                                    Tukang Senior
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td class="px-3 py-2 sm:px-6 sm:py-4 whitespace-normal md:whitespace-nowrap">
+                        <div class="text-sm font-medium text-slate-800">
+                            Renovasi Ruko Blok A
+                        </div>
+                        <div class="text-xs text-slate-500">
+                            <i class="fa-solid fa-map-pin mr-1"></i> Palembang
+                        </div>
+                    </td>
+
+                    <td class="px-3 py-2 sm:px-6 sm:py-4 whitespace-normal md:whitespace-nowrap">
+                        <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full border border-blue-200 font-medium">
+                            Mandor Lapangan
+                        </span>
+                    </td>
+
+                    <td class="px-3 py-2 sm:px-6 sm:py-4 whitespace-normal md:whitespace-nowrap">
+                        <div class="text-sm text-slate-600">
+                            01 Jan 2024 - Selesai
+                        </div>
+                        <div class="text-xs text-green-600 font-medium mt-0.5">
+                            Berjalan 3 Minggu
+                        </div>
+                    </td>
+
+                    <td class="px-3 py-2 sm:px-6 sm:py-4 whitespace-normal md:whitespace-nowrap">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            <span class="h-1.5 w-1.5 rounded-full bg-green-600 mr-1.5"></span>
+                            Aktif
+                        </span>
+                    </td>
+
+                    <td class="px-3 py-2 sm:px-6 sm:py-4 whitespace-normal md:whitespace-nowrap text-sm font-medium">
+                        <button class="text-slate-400 hover:text-slate-600 mr-2">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button class="text-red-400 hover:text-red-600" title="Selesaikan Penempatan">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <!-- ROW 2 -->
+                <tr class="hover:bg-slate-50">
+                    <td class="px-3 py-2 sm:px-6 sm:py-4 whitespace-normal md:whitespace-nowrap">
+                        <div class="flex items-center">
+                            <div class="h-9 w-9 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-600 mr-3">
+                                UK
+                            </div>
+                            <div>
+                                <div class="text-sm font-medium text-slate-900">
+                                    Ujang Kusnadi
+                                </div>
+                                <div class="text-xs text-slate-500">
+                                    Kenek
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td class="px-3 py-2 sm:px-6 sm:py-4 whitespace-normal md:whitespace-nowrap">
+                        <div class="text-sm font-medium text-slate-800">
+                            Renovasi Ruko Blok A
+                        </div>
+                        <div class="text-xs text-slate-500">
+                            <i class="fa-solid fa-map-pin mr-1"></i> Palembang
+                        </div>
+                    </td>
+
+                    <td class="px-3 py-2 sm:px-6 sm:py-4 whitespace-normal md:whitespace-nowrap">
+                        <span class="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded-full border border-slate-200 font-medium">
+                            Tukang Bantu
+                        </span>
+                    </td>
+
+                    <td class="px-3 py-2 sm:px-6 sm:py-4 whitespace-normal md:whitespace-nowrap">
+                        <div class="text-sm text-slate-600">
+                            05 Jan 2024 - Selesai
+                        </div>
+                        <div class="text-xs text-green-600 font-medium mt-0.5">
+                            Berjalan 2 Minggu
+                        </div>
+                    </td>
+
+                    <td class="px-3 py-2 sm:px-6 sm:py-4 whitespace-normal md:whitespace-nowrap">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            <span class="h-1.5 w-1.5 rounded-full bg-green-600 mr-1.5"></span>
+                            Aktif
+                        </span>
+                    </td>
+
+                    <td class="px-3 py-2 sm:px-6 sm:py-4 whitespace-normal md:whitespace-nowrap text-sm font-medium">
+                        <button class="text-slate-400 hover:text-slate-600 mr-2">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button class="text-red-400 hover:text-red-600" title="Selesaikan Penempatan">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
                 </div>
 
                 <!-- 5. KOMPONEN GAJI SECTION (FIXED & COMPLETE) -->
@@ -1662,5 +1769,4 @@
     }
     </script>
 </body>
-
 </html>
